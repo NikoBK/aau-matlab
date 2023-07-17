@@ -78,36 +78,41 @@ T02 = T01 * T12;
 disp("Full transformation matrix based on modified DH parameters is computed to be:")
 disp(T02)
 
+%% Forward Kinematics Using the Robotic Tool box
+clear all
+a1=1;
+a2=0.5;
+C1=2;
+c3=1;
+C2=1;
 
+% Using Robotic Toolbox
+L(1) = Link('alpha', pi/2,'a', 0,'d', 0,'modified') %rotational
+L(2) = Link('alpha', 0,'a', -0.425,'d', 0,'offset',-pi/2,'modified') %rotational
+L(3) = Link('alpha', 0,'a',-0.39225 ,'d', 0,'offset',-pi/2,'modified') %rotational
+L(4) = Link('alpha', pi/2,'a', 0,'d', c3,'modified') %rotational
+L(5) = Link('alpha', -pi/2,'a', 0,'d', 0,'offset',0,'modified') %rotational
+L(6) = Link('alpha', 0,'a', 0,'d', 0,'modified') %rotational
+SixDOF=SerialLink(L, 'name', 'SixDOF-RRRRRR');
 
+% Lets test the movement
+SixDOF.teach();
 
+%% 2018
+clear all
+a1=1;
+a2=0.5;
+C1=2;
+c3=1;
+C2=1;
+%Using Robotic Toolbox
+L(1) = Link('alpha', 0,         'a', 0,              'd', 0.089159, 'offset',5,    'modified') %rotational
+L(2) = Link('alpha', pi/2,      'a', -0.425,         'd', 0,        'offset',10+pi,     'modified') %rotational
+L(3) = Link('alpha', 0,         'a', -0.39225,       'd', 0,        'offset',15,    'modified') %rotational
+L(4) = Link('alpha', 0,         'a', 0,              'd', 0.10915,  'offset',20,    'modified') %rotational
+L(5) = Link('alpha', -pi/2,     'a', 0,              'd', 0.09465,  'offset',25,    'modified') %rotational
+L(6) = Link('alpha', pi/2,       'a', 0,             'd', 0.0823,   'offset',30+pi,     'modified') %rotational
+SixDOF=SerialLink(L, 'name', 'SixDOF-RRRRRR');
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-% End of document
+%Lets test the movement
+SixDOF.teach();
