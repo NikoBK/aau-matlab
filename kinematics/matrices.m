@@ -72,3 +72,128 @@ T=  [
     Kx * Ky * vt + Kz * st, Ky * Ky * vt + ct, Ky * Kz * vt - Kx * st;
     Kx * Kz * vt - Ky * st, Ky * Kz * vt + Kx * st, Kz * Kz * vt + ct
 ];
+
+%% XYZ Fixed Intrinsic
+R = [
+    0.9363,   -0.2896,    0.1987;
+    0.3130,    0.9447,   -0.0978;
+   -0.1593,    0.1538,    0.9752
+];
+
+R31 = R(3,1);
+R32 = R(3,2);
+R33 = R(3,3);
+R11 = R(1,1);
+R12 = R(1,2);
+R21 = R(2,1);
+
+beta_1=atan2(-R31, sqrt(R11^2 + R21^2));
+alpha_1=atan2(R21 / cos(beta_1), R11 / cos(beta_1));
+gamma_1=atan2(R32 / cos(beta_1), R33 / cos(beta_1));
+
+beta_2 = atan2(-R31, -sqrt(R11 * R11 + R21 * R21));
+alpha_2 = atan2(R21 / cos(beta_2), R11 / cos(beta_2));
+gamma_2 = atan2(R32 / cos(beta_2), R33 / cos(beta_2));
+
+
+if(APX(beta_1, pi / 2, 0.1))
+     
+    alpha_1 = 0;
+    gamma_1 = atan2(-R12, R11);
+
+    alpha_2 = 0;
+    gamma_2 = atan2(-R12, R11);
+end
+if(APX(beta_1, -pi / 2, 0.1))
+    
+    alpha_1 = 0;
+    gamma_1 = atan2(R12, R11);
+
+    alpha_2 = 0;
+    gamma_2 = -atan2(R12, R11);
+end
+
+ang1 = [alpha_1; beta_1; gamma_1];
+ang2 = [alpha_2; beta_2; gamma_2];
+T = [ang1, ang2];
+
+%% ZYZ Intrinsic
+R = [
+    0.9363,   -0.2896,    0.1987;
+    0.3130,    0.9447,   -0.0978;
+   -0.1593,    0.1538,    0.9752
+];
+
+R13 = R(1,3);
+R23 = R(2,3);
+R31 = R(3,1);
+R32 = R(3,2);
+R33 = R(3,3);
+R11 = R(1,1);
+R12 = R(1,2);
+
+beta_1 = atan2(sqrt(R31 * R31 + R32 * R32), R33);
+alpha_1 = atan2(R23 / sin(beta_1), R13 / sin(beta_1));
+gamma_1 = atan2(R32 / sin(beta_1), -R31 / sin(beta_1));
+
+beta_2 = atan2(-sqrt(R31 * R31 + R32 * R32), R33);
+alpha_2 = atan2(R23 / sin(beta_2), R13 / sin(beta_2));
+gamma_2 = atan2(R32 / sin(beta_2), -R31 / sin(beta_2));
+
+if(APX(beta_1_1, pi / 2, 0.1))  
+    alpha_1 = 0;
+    gamma_1 = atan2(-R12, R11);
+
+    alpha_2 = 0;
+    gamma_2 = atan2(-R12, R11);
+end
+if(APX(beta_1_1, -pi / 2, 0.1))
+    alpha_1 = 0;
+    gamma_1 = atan2(R12, -R11);
+
+    alpha_2 = 0;
+    gamma_2 = -atan2(R12, -R11);
+end
+ang1 = [alpha_1; beta_1; gamma_1];
+ang2 = [alpha_2; beta_2; gamma_2];
+
+
+%% ZYX Euler Intrinsic
+R = [
+    0.9363,   -0.2896,    0.1987;
+    0.3130,    0.9447,   -0.0978;
+   -0.1593,    0.1538,    0.9752
+];
+
+R13 = R(1,3);
+R23 = R(2,3);
+R31 = R(3,1);
+R32 = R(3,2);
+R33 = R(3,3);
+R11 = R(1,1);
+R12 = R(1,2);
+
+beta_1 = atan2(sqrt(R31 * R31 + R32 * R32), R33);
+gamma_1 = atan2(R23 / sin(beta_1), R13 / sin(beta_1));
+alpha_1 = atan2(R32 / sin(beta_1), -R31 / sin(beta_1));
+
+beta_2 = atan2(-sqrt(R31 * R31 + R32 * R32), R33);
+gamma_2 = atan2(R23 / sin(beta_2), R13 / sin(beta_2));
+alpha_2 = atan2(R32 / sin(beta_2), -R31 / sin(beta_2));
+
+if(APX(beta_1_1, pi / 2, 0.1))  
+    gamma_1 = 0;
+    alpha_1 = atan2(-R12, R11);
+
+    gamma_2 = 0;
+    alpha_2 = atan2(-R12, R11);
+end
+if(APX(beta_1_1, -pi / 2, 0.1))
+    alpha_1 = 0;
+    gamma_1 = atan2(R12, -R11);
+
+    alpha_2 = 0;
+    gamma_2 = -atan2(R12, -R11);
+end
+ang1 = [alpha_1; beta_1; gamma_1];
+ang2 = [alpha_2; beta_2; gamma_2];
