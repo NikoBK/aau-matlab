@@ -90,12 +90,43 @@ tRef =[0.0; tf12; tf12 + tf23];
 
 plot(t, thetaDot, t, thetaDotDot, t, theta);
 
+%% Trajectory Planning: 1D Parabolic Blend - No Via Points
+% The following values are from a random task in RMMS.
+
+theta0 = -43;
+thetaf = 28;
+tf = 6.7;
+a = 10;
+
+tb= tf/2 - sqrt(a^2 * tf^2 - 4 * a * (thetaf - theta0)) / (2 * a);
+
+t=0:0.05:tf;
+theta = 0:0.05:tf; 
+thetaDot = 0:0.05:tf; 
+thetaDOtDot = 0:0.05:tf; 
+thetaRef = [theta0; thetaf];
+tRef = [0.0; tf];
+
+for i=1:size(t,2)
+    if (t(i) < tb)
+        theta(i) = theta0 + 0.5 * a * t(i)^2;
+        thetaDot(i) = a * t(i);
+        thetaDotDot(i) = a;
+
+    elseif (t(i) > (tf - tb))
+            theta(i) = thetaf - 0.5 * a * (tf - t(i))^2;
+            thetaDot(i) = a * (tf - t(i));
+            thetaDotDot(i) = -a;
+    else
+            theta(i) = 0.5 * a * tb^2 + theta0 + a * tb * (t(i) - tb);
+            thetaDot(i)=a * tb;
+            thetaDotDot(i) = 0;
+
+    end
+end
 
 
-
-
-
-
+plot(t, theta);
 
 
 
