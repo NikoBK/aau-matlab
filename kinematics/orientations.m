@@ -32,3 +32,15 @@ disp("Roll: " + gamma + "(Gamma)")
 disp("Pitch: " + beta + "(Beta)")
 disp("Yaw: " + alpha + "(Alpha)")
 
+%% Convert Rotation Matrix to RPY (Roll Pitch Yaw)
+R = [
+    0.9363,   -0.2896,    0.1987;
+    0.3130,    0.9447,   -0.0978;
+   -0.1593,    0.1538,    0.9752
+];
+
+beta = atan2(-rotm(3,1), sqrt(rotm(1,1)^2 + rotm(2,1)^2));
+alpha = atan2(rotm(2,1) / cos(beta), rotm(1,1) / cos(beta));
+gamma = atan2(rotm(3,2) / cos(beta), rotm(3,3) / cos(beta));
+
+RPY = [gamma, beta, alpha];
