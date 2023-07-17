@@ -52,5 +52,6 @@ z = (m(2,1) - m(1,2)) / sqrt((m(3,2) - m(2,3))^2 + (m(1,3) - m(3,1))^2 + (m(2,1)
 x1 = (1 / (2 * sin(radangle))) * (m(3,2) - m(2,3));
 y1 = (1 / (2 * sin(radangle))) * (m(1,3) - m(3,1));
 z1 = (1 / (2 * sin(radangle))) * (m(2,1) - m(1,2));
+
 AxisAngle = [angle, x, y, z]
 CraigAngle = [angle, x1, y1, z1]'

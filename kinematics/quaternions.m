@@ -107,3 +107,37 @@ fprintf("Computed Roll Pitch Yaw is:\n")
 disp("    Roll: " + gamma + "(Gamma)")
 disp("    Pitch: " + beta + "(Beta)")
 disp("    Yaw: " + alpha + "(Alpha)")
+
+%% Intrensic Rotation Matrix to Quaternion
+r11 = 1 - 2 * e2^2 - 2 * e3^2;
+r12 = 2 * (e1 * e2 - e3 * e4);
+r13 = 2 * (e1 * e3 + e2 * e4);
+r21 = 2 * (e1 *e2 + e3 *e4);
+r22 = 1 - 2 * e1^2 - 2 * e3^2;
+r23 = 2 * (e2 * e3 - e1 * e4);
+r31 = 2 * (e1 * e3 - e2 * e4);
+r32 = 2 * (e2 * e3 + e1 * e4);
+r33 = 1 - 2 * e1^2 - 2 * e2^2;
+
+R = [
+    r11, r12, r13;
+    r21, r22, r23;
+    r31, r32, r33
+];
+
+R13 = R(1,3);
+R23 = R(2,3);
+R22 = R(2,2);
+R21 = R(2,1);
+R31 = R(3,1);
+R32 = R(3,2);
+R33 = R(3,3);
+R11 = R(1,1);
+R12 = R(1,2);
+
+e4=sqrt(1 + R11 + R22 + R33) / 2;
+e1 = (R32 - R23) / (4 * e4);
+e2 = (R13 - R31) / (4 * e4);
+e3 = (R21 - R12) / (4 * e4);
+
+ang1 = [e1; e2; e3; e4];
