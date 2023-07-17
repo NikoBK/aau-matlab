@@ -9,10 +9,11 @@ disp("If you are reading this in your command window it means you have pressed '
 disp("Please use 'Run Section' while being in the correct section within the code instead.")
 return;
 
-
+%% Parabolic Blend
 %Remember when plotting piecewise function to set interval. 
 % This way the plot opens up showing the whole function
 %fplot(pw(t),[0 t_f])
+
 theta0 = 0;
 theta_f = 0;
 a = 0;
