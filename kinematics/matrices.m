@@ -55,3 +55,20 @@ z1 = (1 / (2 * sin(radangle))) * (m(2,1) - m(1,2));
 
 AxisAngle = [angle, x, y, z]
 CraigAngle = [angle, x1, y1, z1]'
+
+%% Rotation Matrix from Angle Axis
+K = N/A;
+
+Kx = K(1);
+Ky = K(2);
+Kz = K(3);
+t = K(4);
+ct = cos(t);
+vt = 1-cos(t);
+st = sin(t);
+
+T=  [
+    Kx * Kx * vt + ct, Kx * Ky * vt - Kz * st, Kx * Kz * vt + Ky * st;
+    Kx * Ky * vt + Kz * st, Ky * Ky * vt + ct, Ky * Kz * vt - Kx * st;
+    Kx * Kz * vt - Ky * st, Ky * Kz * vt + Kx * st, Kz * Kz * vt + ct
+];
